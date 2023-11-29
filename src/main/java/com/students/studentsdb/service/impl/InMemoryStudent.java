@@ -1,19 +1,41 @@
 package com.students.studentsdb.service.impl;
 
 import com.students.studentsdb.models.Student;
+import com.students.studentsdb.repository.InMemoryStudentDAO;
 import com.students.studentsdb.service.StudentService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class InMemoryStudent implements StudentService {
+
+
+   private final InMemoryStudentDAO repository;
     @Override
     public List<Student> findAllStudent() {
-        return List.of(
-                Student.builder().firstName("Oleg").email("oleg131@gmail.com").age(41).build(),
-                Student.builder().firstName("Andriy").email("Andriy11@gmail.com").age(65).build(),
-                Student.builder().firstName("Baka").email("Baka@gmail.com").age(23).build()
-        );
+        return repository.findAllStudent();
+    }
+
+    @Override
+    public Student saveStudent(Student student) {
+        return repository.saveStudent(student);
+    }
+
+    @Override
+    public Student findByEmail(String email) {
+        return repository.findByEmail(email);
+    }
+
+    @Override
+    public Student updateStudent(Student student) {
+        return repository.updateStudent(student);
+    }
+
+    @Override
+    public void deleteStudent(String email) {
+        repository.deleteStudent(email);
     }
 }
